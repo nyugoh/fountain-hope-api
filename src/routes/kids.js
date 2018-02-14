@@ -31,6 +31,20 @@ route.put('/api/kid/:kidId', (req, res) => {
 	});
 });
 
+route.put('/api/kid/:kidId/update', (req, res) => {
+	let update = {
+		date: new Date(),
+		body:req.body.update.update
+	};
+	Kid.findById({_id:req.params.kidId}).then( kid => {
+		kid.updates.push(update);
+		kid.save();
+		res.json({kid:kid});
+	}).catch( error => {
+		res.status(404).json({errors:{ global: error.message}});
+	});
+});
+
 route.post('/api/kids', (req, res) =>{
 	const kid = new Kid(req.body.kid);
 	kid.save().then( responce => {

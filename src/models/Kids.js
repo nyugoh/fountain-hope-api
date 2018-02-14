@@ -6,12 +6,18 @@ const kidSchema = new mongoose.Schema({
 	firstName: String,
 	gender: String,
 	dob: Date,
-	placeOfBirth: String,
+	pob: String,
 	religion: String,
 	phoneNumber: String,
 	address: String,
 	email: String,
-	story: String
+	story: String,
+	lastUpdate: {
+		type: Date,
+		default: Date.now
+	},
+	updates: [{ body: String, date: Date }],
+	comments: [{ body: String, date: Date }],
 }, { timeStamps: true });
 
 export default mongoose.model('Kid', kidSchema);
