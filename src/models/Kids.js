@@ -3,7 +3,9 @@ import mongoose from 'mongoose';
 
 const kidSchema = new mongoose.Schema({
 	fullName: String,
+	sirName: String,
 	firstName: String,
+	middleName: String,
 	gender: String,
 	dob: Date,
 	pob: String,
