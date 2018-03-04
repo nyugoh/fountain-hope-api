@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const updateSchema = new model.Schema({
+const updateSchema = new mongoose.Schema({
   body: {
     type:String,
     required: true
