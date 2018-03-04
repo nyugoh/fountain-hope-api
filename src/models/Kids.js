@@ -20,6 +20,6 @@ const kidSchema = new mongoose.Schema({
 	},
 	updates: [{ body: String, date: Date }],
 	comments: [{ body: String, date: Date }],
-}, { timeStamps: true });
+}, { timestamps: true });
 
 export default mongoose.model('Kid', kidSchema);

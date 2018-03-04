@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 const schema = new mongoose.Schema({
   email: {type:String, index: true, required: true, lowercase: true},
   passwordHash: { type: String, required:true}
-}, { timeStamps: true });
+}, { timestamps: true });
 
 schema.methods.isValidPassword = function isValidPassword(password) {
   return bcrypt.compareSync(password, this.passwordHash);

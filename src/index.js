@@ -6,6 +6,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import user from './routes/user';
 import kids from './routes/kids';
+import messages from './routes/messages';
 
 const app = express();
 dotenv.config();
@@ -16,6 +17,7 @@ mongoose.Promise = Promise;
 
 app.use('/api/auth', user);
 app.use(kids);
+app.use(messages);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
