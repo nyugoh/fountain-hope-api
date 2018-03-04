@@ -7,6 +7,9 @@ const updateSchema = new model.Schema({
   },
   images: {
     type: Array
+  },
+  kidId: {
+    type: String
   }
 }, {timestamps: true});
 
