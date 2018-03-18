@@ -5,7 +5,7 @@ const updateSchema = new mongoose.Schema({
     type:String,
     required: true
   },
-  images: {
+  files: {
     type: Array
   },
   kidId: {

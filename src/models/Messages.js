@@ -11,7 +11,7 @@ const messageSchema = new mongoose.Schema({
    },
    to: {
      type: String,
-     required: true
+     default: 'admin'
    },
    body: {
      type: String,
@@ -19,7 +19,7 @@ const messageSchema = new mongoose.Schema({
    },
    isRead: {
      type: Boolean,
-     defaultValue: false
+     default: false
    }
 }, {timestamps: true});
 
