@@ -1,5 +1,6 @@
 import {Router} from 'express';
 import Message from '../models/Messages';
+import Sponsors from '../models/Sponsors';
 
 const router = Router();
 
@@ -35,6 +36,14 @@ router.get('/api/messages/:kidId', (req, res) => {
 	}).catch( error => {
 		res.status(404).json({errors:{ global: error.message}});
 	});
+});
+
+router.get('/api/sponsors', (req, res) => {
+  Sponsors.find().then( sponsors => {
+    res.json({sponsors:sponsors});
+  }).catch( error => {
+    res.status(404).json({errors:{ global: 'Error getting records'}});
+  });
 });
 
 export default router;
