@@ -19,9 +19,23 @@ router.post('/api/messages', (req, res) =>{
 });
 
 router.get('/api/messages', (req, res) => {
-	Message.find().then( messages => {
+	var count;
+  var limit = 2;
+  var page;
+  var skip;
+  if(req.query)
+    page = parseInt(req.query.page);
+	else
+		page = 1;
+  skip = page===1? 0: (page-1)*limit;
+	Message.count({}).then((total)=>{
+		count = total;
+	}).catch(error =>{
+		console.log(error.message)
+	});
+	Message.find().sort({'createdAt': -1}).skip(skip).limit(limit).then( messages => {
 		setTimeout( function() {
-			res.json({messages:messages});
+			res.json({body:messages, total:count});
 		}, 1000)
 	}).catch( error => {
 		res.status(404).json({errors:{ global: 'Error getting records'}});
