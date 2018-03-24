@@ -46,4 +46,13 @@ router.get('/api/sponsors', (req, res) => {
   });
 });
 
+router.post('/api/sponsors', (req, res) => {
+	const sponsor = new Sponsors(req.body.sponsor);
+  sponsor.save().then( sponsor => {
+    res.json({status:'ok'});
+  }).catch( error => {
+    res.status(404).json({errors:{ global: 'Error getting records'}});
+  });
+});
+
 export default router;

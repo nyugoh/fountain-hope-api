@@ -17,6 +17,9 @@ const Sponsor = new mongoose.Schema({
   },
   kidsSponsored: {
     type: Array
+  },
+  profileImages: {
+    type: Array
   }
 }, { timestamps: true });
 
