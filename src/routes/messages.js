@@ -20,7 +20,7 @@ router.post('/api/messages', (req, res) =>{
 
 router.get('/api/messages', (req, res) => {
 	var count;
-  var limit = 2;
+  var limit = 5;
   var page;
   var skip;
   if(req.query)
@@ -53,8 +53,22 @@ router.get('/api/messages/:kidId', (req, res) => {
 });
 
 router.get('/api/sponsors', (req, res) => {
-  Sponsors.find().then( sponsors => {
-    res.json({sponsors:sponsors});
+  var count;
+  var limit = 5;
+  var page;
+  var skip;
+  if(req.query)
+    page = parseInt(req.query.page);
+  else
+    page = 1;
+  skip = page===1? 0: (page-1)*limit;
+  Sponsors.count({}).then((total)=>{
+    count = total;
+  }).catch(error =>{
+    console.log(error.message)
+  });
+  Sponsors.find().sort({'createdAt': -1}).skip(skip).limit(limit).then( sponsors => {
+    res.json({sponsors:sponsors, total:count});
   }).catch( error => {
     res.status(404).json({errors:{ global: 'Error getting records'}});
   });

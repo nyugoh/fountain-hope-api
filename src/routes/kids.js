@@ -4,10 +4,22 @@ import Kid from '../models/Kids';
 const route = Router();
 
 route.get('/api/kids', (req, res) => {
-	Kid.find().then( kids => {
-		setTimeout( function() {
-			res.json({kids:kids});
-		}, 1000)
+  var count;
+  var limit = 2;
+  var page;
+  var skip;
+  if(req.query)
+    page = parseInt(req.query.page);
+  else
+    page = 1;
+  skip = page===1? 0: (page-1)*limit;
+  Kid.count({}).then((total)=>{
+    count = total;
+  }).catch(error =>{
+    console.log(error.message)
+  });
+	Kid.find().sort({'updatedAt': -1}).skip(skip).limit(limit).then( kids => {
+    res.json({kids:kids, total:count});
 	}).catch( error => {
 		res.status(404).json({errors:{ global: 'Error getting records'}});
 	});
@@ -15,9 +27,7 @@ route.get('/api/kids', (req, res) => {
 
 route.get('/api/kid/:kidId', (req, res) => {
 	Kid.findById({_id:req.params.kidId}).then( kid => {
-		setTimeout( function() {
-			res.json({kid:kid});
-		}, 1000)
+		res.json({kid:kid});
 	}).catch( error => {
 		res.status(404).json({errors:{ global: error.message}});
 	});
