@@ -4,8 +4,16 @@ import jwt from 'jsonwebtoken';
 
 // TODO: Make email unique and email validation
 const schema = new mongoose.Schema({
-  email: {type:String, index: true, required: true, lowercase: true},
-  passwordHash: { type: String, required:true}
+  email: {
+    type:String,
+    index: true,
+    required: true,
+    lowercase: true
+  },
+  passwordHash: {
+    type: String,
+    required:true
+  }
 }, { timestamps: true });
 
 schema.methods.isValidPassword = function isValidPassword(password) {

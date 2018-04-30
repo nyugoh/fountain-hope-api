@@ -5,7 +5,7 @@ const route = Router();
 
 route.get('/api/kids', (req, res) => {
   var count;
-  var limit = 2;
+  var limit = 5;
   var page;
   var skip;
   if(req.query)
