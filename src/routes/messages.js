@@ -8,12 +8,11 @@ router.post('/api/messages', (req, res) =>{
 	const message = new Message(req.body.message);
   message.save().then((message) => {
     if (message) {
-      res.json({status: "ok"});
+      res.json({status: "ok", message});
     } else {
       res.status(404).json({errors: {global: 'Invalid credentials.'}})
     }
   }).catch(error =>{
-		console.log(error);
 		res.status(404).json({errors: error.message})
 	});
 });
