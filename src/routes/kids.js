@@ -19,7 +19,7 @@ route.get('/api/kids', (req, res) => {
     console.log(error.message)
   });
 	Kid.find().sort({'updatedAt': -1}).skip(skip).limit(limit).then( kids => {
-    res.json({kids:kids, total:count});
+    res.json({kids:kids, page:page});
 	}).catch( error => {
 		res.status(404).json({errors:{ global: 'Error getting records'}});
 	});
