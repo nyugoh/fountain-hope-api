@@ -18,6 +18,10 @@ const kidSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
+	isShowing: {
+		type: Boolean,
+		default: true
+	},
 	updates: [{ body: String, date: Date }],
 	comments: [{ body: String, date: Date }],
 }, { timestamps: true });
