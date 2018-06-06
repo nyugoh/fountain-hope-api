@@ -34,7 +34,7 @@ route.get('/api/kid/:kidId', (req, res) => {
 });
 
 route.put('/api/kid/:kidId', (req, res) => {
-	Kid.findByIdAndUpdate(req.params.kidId, req.body.kid).then( kid => {
+	Kid.findByIdAndUpdate(req.params.kidId, req.body.kid, { new:true }).then( kid => {
 		res.json({kid:kid});
 	}).catch( error => {
 		res.status(404).json({errors:{ global: error.message}});
@@ -48,8 +48,9 @@ route.put('/api/kid/:kidId/update', (req, res) => {
 	};
 	Kid.findById({_id:req.params.kidId}).then( kid => {
 		kid.updates.push(update);
-		kid.save();
-		res.json({kid:kid});
+		kid.save().then(kid => {
+      res.json({kid:kid});
+    });
 	}).catch( error => {
 		res.status(404).json({errors:{ global: error.message}});
 	});
