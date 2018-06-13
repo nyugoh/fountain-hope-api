@@ -30,6 +30,14 @@ router.delete('/api/updates/:id', (req, res) => {
     });
 });
 
+router.put('/api/updates/:id', (req, res) => {
+  Updates.findByIdAndUpdate(req.params.id, req.body.update, { new: true }).then( update => {
+    res.json({update});
+  }).catch( error => {
+    res.status(500).json({errors:{ global: 'Error deleting update'}});
+  });
+});
+
 router.get('/api/updates/:kidId', (req, res) => {
 	Updates.findById({to:req.params.kidId}).then( update => {
 		res.json({update});
