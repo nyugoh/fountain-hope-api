@@ -5,32 +5,36 @@ const router = Router();
 
 router.post('/api/updates', (req, res) =>{
   const update = new Updates(req.body.update);
-  update.save().then((update) => {
-    if (update) {
-      res.json({status: "ok"});
-    } else {
-      res.status(404).json({errors: {global: 'Invalid credentials.'}})
-    }
+  update.save().then(update => {
+    if (update)
+      res.json({ update });
+    else
+      res.status(500).json({errors: {global: 'Invalid credentials.'}})
   });
 });
 
 router.get('/api/updates', (req, res) => {
 	Updates.find().then( updates => {
-		setTimeout( function() {
-			res.json({updates:updates});
-		}, 1000)
+		res.json({updates:updates});
 	}).catch( error => {
-		res.status(404).json({errors:{ global: 'Error getting records'}});
+		res.status(500).json({errors:{ global: 'Error getting records'}});
 	});
+});
+
+router.delete('/api/updates/:id', (req, res) => {
+    Updates.findByIdAndRemove(req.params.id).then( response => {
+      if (response)
+        res.json({status: "Ok"});
+    }).catch( error => {
+        res.status(500).json({errors:{ global: 'Error deleting update'}});
+    });
 });
 
 router.get('/api/updates/:kidId', (req, res) => {
 	Updates.findById({to:req.params.kidId}).then( update => {
-		setTimeout( function() {
-			res.json({update:update});
-		}, 1000)
+		res.json({update});
 	}).catch( error => {
-		res.status(404).json({errors:{ global: error.update}});
+		res.status(500).json({errors:{ global: error.update}});
 	});
 });
 

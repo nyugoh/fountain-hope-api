@@ -9,7 +9,8 @@ const updateSchema = new mongoose.Schema({
     type: Array
   },
   kidId: {
-    type: String
+    type: String,
+    required: true
   }
 }, {timestamps: true});
 
