@@ -17,9 +17,30 @@ router.post('/api/messages', (req, res) =>{
 	});
 });
 
+router.post('/api/messages/:id/read', (req, res) =>{
+  Message.findById({_id: req.params.id}).then(message => {
+    message.isRead = true;
+    message.save().then( message=>{
+      if (message)
+        res.json({message});
+    });
+  }).catch(error =>{
+    res.status(404).json({errors: error.message})
+  });
+});
+
+router.delete('/api/messages/:id', (req, res) =>{
+  Message.findByIdAndRemove(req.params.id).then(message => {
+    if(message)
+      res.json(message);
+  }).catch(error =>{
+    res.status(404).json({errors: error.message})
+  });
+});
+
 router.get('/api/messages', (req, res) => {
 	var count;
-  var limit = 5;
+  var limit = 50;
   var page;
   var skip;
   if(req.query)
