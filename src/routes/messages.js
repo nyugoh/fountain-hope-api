@@ -76,7 +76,7 @@ router.get('/api/messages/:kidId', (req, res) => {
 
 router.get('/api/sponsors', (req, res) => {
   var count;
-  var limit = 5;
+  var limit = 20;
   var page;
   var skip;
   if(req.query)
@@ -121,6 +121,14 @@ route.delete('/api/sponsors/:id', (req, res) =>{
       res.json({ sponsor });
   }).catch( err =>{
     res.status(404).json({errors: { global: err.message }});
+  });
+});
+
+route.put('/api/sponsors/:sponsorId', (req, res) => {
+  Sponsors.findByIdAndUpdate(req.params.sponsorId, req.body.sponsor, { new:true }).then( sponsor => {
+    res.json({sponsor});
+  }).catch( error => {
+    res.status(404).json({errors:{ global: error.message}});
   });
 });
 
