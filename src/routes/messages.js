@@ -1,6 +1,8 @@
 import {Router} from 'express';
 import Message from '../models/Messages';
 import Sponsors from '../models/Sponsors';
+import Kid from "../models/Kids";
+import route from "./kids";
 
 const router = Router();
 
@@ -97,9 +99,28 @@ router.get('/api/sponsors', (req, res) => {
 router.post('/api/sponsors', (req, res) => {
 	const sponsor = new Sponsors(req.body.sponsor);
   sponsor.save().then( sponsor => {
-    res.json({status:'ok'});
+    res.json({ sponsor });
   }).catch( error => {
     res.status(404).json({errors:{ global: 'Error getting records'}});
+  });
+});
+
+router.post('/api/sponsors/:id/archive', (req, res) => {
+  Sponsors.findById({_id:req.params.id}).then( sponsor => {
+    sponsor.isShowing = !sponsor.isShowing;
+    sponsor.save();
+    res.json({sponsor});
+  }).catch( error => {
+    res.status(404).json({errors:{ global: error.message}});
+  });
+});
+
+route.delete('/api/sponsors/:id', (req, res) =>{
+  Sponsors.findByIdAndRemove(req.params.id).then( sponsor => {
+    if (sponsor)
+      res.json({ sponsor });
+  }).catch( err =>{
+    res.status(404).json({errors: { global: err.message }});
   });
 });
 

@@ -20,6 +20,10 @@ const Sponsor = new mongoose.Schema({
   },
   profileImages: {
     type: Array
+  },
+  isShowing: {
+    type: Boolean,
+    default: true
   }
 }, { timestamps: true });
 
