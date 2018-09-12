@@ -23,7 +23,7 @@ app.use('/*', (req, res, next) =>{
   console.log(req.baseUrl);
   next();
 });
-app.use('/api/auth', user);
+app.use(user);
 app.use(kids);
 app.use(messages);
 app.use(updates);

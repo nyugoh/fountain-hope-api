@@ -14,7 +14,7 @@ router.post('/api/updates', (req, res) =>{
 });
 
 router.get('/api/updates', (req, res) => {
-	Updates.find().then( updates => {
+	Updates.find().sort({ 'updatedAt': 'desc'}).then( updates => {
 		res.json({updates:updates});
 	}).catch( error => {
 		res.status(500).json({errors:{ global: 'Error getting records'}});
