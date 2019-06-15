@@ -30,9 +30,9 @@ app.use(kids);
 app.use(messages);
 app.use(updates);
 app.use("/api/v1/images", images);
-
+app.use(express.static(path.join(__dirname, "../app/build")));
 app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(__dirname, "../app/build/index.html"));
 });
 
 app.listen(8080, () => console.log("Server is running on ::8080"));
