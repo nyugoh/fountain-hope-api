@@ -22,7 +22,7 @@
     "express": "^4.16.2",
     "express-fileupload": "^0.4.0",
     "jsonwebtoken": "^8.1.1",
-    "mongoose": "^5.0.1",
+    "mongoose": "^5.7.5",
     "paypal-rest-sdk": "^1.8.1",
     "validator": "^9.3.0"
   }
