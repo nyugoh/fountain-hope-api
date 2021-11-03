@@ -24,6 +24,6 @@
     "jsonwebtoken": "^8.1.1",
     "mongoose": "^5.0.1",
     "paypal-rest-sdk": "^1.8.1",
-    "validator": "^9.3.0"
+    "validator": "^13.7.0"
   }
 }
